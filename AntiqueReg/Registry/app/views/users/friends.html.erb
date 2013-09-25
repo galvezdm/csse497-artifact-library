@@ -1,0 +1,54 @@
+<% provide(:title, 'Friends') %>
+
+<div class="fluid-row">
+  <div class="span9">
+    <h3>Friends</h3>
+  </div>
+  <div class="span3" id="addColBtn">
+    <a class="btn btn-inverse"><i class="icon-pencil icon-white"></i> <strong>Add Friend</strong></a>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<br><br>
+
+<div class="artifacts">
+  <div class="clearfix">
+    <div class="carousel slide" id="collectionCarousel">
+      <div class="carousel-inner">
+        <div class="item active">
+          <% (1..@rows).each do |i| %>
+              <ul class="thumbnails">
+                <% (1..@columns).each do |k| %>
+                    <li class="span3">
+                      <div class="thumbnail text-center">
+                        <img src="http://placehold.it/260x180" alt="">
+                        <a>Friend <%= k %></a>
+                      </div>
+                    </li>
+                <% end %>
+              </ul>
+          <% end %>
+        </div>
+
+      </div>
+      <a data-slide="prev" href="#collectionCarousel" class="left carousel-control">‹</a>
+      <a data-slide="next" href="#collectionCarousel" class="right carousel-control">›</a>
+    </div>
+  </div>
+</div>
+
+<div class="pagination pull-right">
+  <ul>
+    <!-- Previous page link -->
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <!-- Numbered page links -->
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+
+    <!-- Next page link -->
+    <li class="next"><a href="">Next &rarr;</a></li>
+
+  </ul>
+</div>

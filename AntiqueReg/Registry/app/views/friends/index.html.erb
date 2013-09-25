@@ -1,0 +1,33 @@
+
+<div class="fluid-row">
+  <div class="span9">
+    <h3>Friends</h3>
+  </div>
+  <div class="span3" id="addColBtn">
+    <a class="btn btn-inverse"><i class="icon-pencil icon-white"></i> <strong>Add Friend</strong></a>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="margin-bottom2">
+  <div class="input-append float-right"><input type="text" id="" name="" placeholder="Search"><span class="add-on"><i class="icon-search"></i></span></div>
+</div>
+
+<br><br>
+
+<div class="artifacts">
+  <% @friends.each do |friend| %>
+      <div class="fluid-row" xmlns="http://www.w3.org/1999/html">
+        <div class="span5 text-center">
+          <img src="http://placehold.it/250x250">
+        </div>
+
+        <div class="span6 text-left">
+          <%= link_to controller: 'friends', action:'show', id: @user.id, friend_id: friend.id  do %>
+              <h4><%= "#{friend.first_name } #{friend.last_name }"%></h4>
+          <% end %>
+          <p><a href="mailto:<%= friend.email %>"><%= friend.email %></a></p>
+        </div>
+      </div>
+  <% end %>
+</div>

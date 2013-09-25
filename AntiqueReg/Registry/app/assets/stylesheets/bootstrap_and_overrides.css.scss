@@ -1,0 +1,77 @@
+//Customize colorss
+$btnPrimaryBackground:          #e87677;
+$btnPrimaryBackgroundHighlight: #dd3435;
+
+@import "bootstrap";
+
+body {
+  padding-bottom: 40px;
+  background-color: #F4F3EE;
+  font-family: "Gotham","Helvetica Neue",Helvetica,Verdana,Sans-Serif;
+}
+
+hr {
+  border-color: #727B84;
+}
+
+.brand, h1, h2, h3, h4, h5, h6
+  {
+  font-family: "MuseoSlabRegular";
+}
+
+h3
+  {
+  color: #DF9496;
+}
+
+.navbar .nav{
+  li a{
+    font-family: "MuseoSlabRegular";
+  }
+}
+
+.nav-list
+  {
+  .active > a, .active > a:hover
+    {
+    background-color: #A2ADBC;
+  }
+  .active > a, .active > a:hover, li > a{
+    padding: 8px 15px;
+    margin: 5px -15px;
+  }
+}
+
+.modal-open .modal,.btn:focus{
+  outline:none
+}
+
+.carousel .carousel-control{
+  visibility: hidden;
+}
+
+.carousel:hover .carousel-control{
+  visibility: visible;
+}
+
+.dropdown-arrow
+  {
+  background: transparent;
+  border-color: #000000;
+}
+
+@font-face
+{
+  font-family:'MuseoSlabRegular';
+  src:url(http://rack.0.mshcdn.com/assets/MuseoSlab500-5dfda85ab9b23ab368b16b02fae649aa.eot);
+  src:url(http://rack.1.mshcdn.com/assets/MuseoSlab500.eot?#iefix)
+  format("embedded-opentype"),
+  url(http://rack.2.mshcdn.com/assets/MuseoSlab500-48b905f3b45475f65a2535134635fa29.woff)
+  format("woff"),
+  url(http://rack.2.mshcdn.com/assets/MuseoSlab500-3476be1a3e908182e377545dc3bcdcec.ttf)
+  format("truetype");
+  font-weight:normal;
+  font-style:normal
+}
+
+@import "bootstrap-responsive";

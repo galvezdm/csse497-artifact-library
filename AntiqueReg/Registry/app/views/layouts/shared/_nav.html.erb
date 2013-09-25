@@ -1,0 +1,53 @@
+<div class="navbar nav">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">Artifacts and Antiquities Registry</a>
+
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="divider-vertical"></li>
+          <li><%= link_to 'Profile', controller:'users', action: 'show', id: current_user.id %></li>
+          <li><%= link_to 'Collections', controller:'users', action: 'collections', id: current_user.id, page: 1 %></li>
+          <li><%= link_to 'Artifacts', controller:'users', action: 'artifacts', id: current_user.id %></li>
+          <li><%= link_to 'Friends', controller: 'friends', action: 'index', id: current_user.id %></li>
+        </ul>
+        <div class="pull-right">
+          <ul class="nav pull-right">
+            <li class="divider-vertical"></li>
+            <li class="search-margin">
+              <div class="input-append float-left">
+                <input type="text" id="searchKeyword" name="keyword" placeholder="Search">
+                <span class="add-on" id="search"><i class="icon-search"></i></span>
+              </div>
+            </li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <%= current_user.first_name %> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to controller:'users', action: 'edit', id: current_user.id  do%>
+                      <i class="icon-edit"></i> Edit Profile
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to controller:'static', action: 'help'  do%>
+                      <i class="icon-envelope"></i> Help
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to controller:'static', action: 'about'  do%>
+                      <i class="icon-info-sign"></i> About
+                  <% end %>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to controller:'sessions', action: 'destroy'  do%>
+                      <i class="icon-off"></i> Logout
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

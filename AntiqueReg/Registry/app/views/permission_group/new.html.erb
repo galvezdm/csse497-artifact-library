@@ -1,0 +1,4 @@
+<%= form_for @permission_group, :url => { :action => "create" } do |field| %>
+    <%= field.text_field :name %>
+    <%= field.submit "create" %>
+<% end %>

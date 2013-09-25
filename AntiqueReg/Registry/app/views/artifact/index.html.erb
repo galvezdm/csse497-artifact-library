@@ -1,0 +1,18 @@
+<% provide(:title, 'Artifacts') %>
+
+<div class="fluid-row">
+  <div class="span9">
+    <h3>Artifacts</h3>
+  </div>
+  <div class="span3">
+    <a href="/artifact/create" class="btn btn-inverse"><i class="icon-pencil icon-white"></i> <strong>Add Artifact</strong></a>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<% (1..10).each do |i| %>
+    <div>
+
+    </div>
+  <ol><a href="/artifact/artifactInfo/<%= i %>" style="color: #000000;">Artifact <%= i %></a></ol>
+<% end %>

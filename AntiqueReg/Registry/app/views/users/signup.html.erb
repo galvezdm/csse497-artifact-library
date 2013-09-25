@@ -1,0 +1,149 @@
+<% provide(:title, 'SignUp') %>
+
+<form id="signUpForm" accept-charset="UTF-8" enctype="multipart/form-data">
+  <div class="row-fluid margin-top2">
+    <div class="well span8 row-fluid offset2">
+      <h2 class="text-center">Sign Up</h2>
+
+      <div class="row-fluid margin-top2">
+        <div class="span1"></div>
+        <div class="span5">
+          <div class="control-group">
+            <label class="control-label">First Name: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[first_name]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Last Name: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[last_name]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Phone Number: </label>
+            <div class="controls">
+              <input type="text" class="bfh-phone" data-country="US" name="user[phone_number]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Address: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[address]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">City: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[city]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">State: </label>
+            <div class="controls">
+              <select class="bfh-states" data-country="US" data-state="IN" name="user[state]"></select>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Zip Code: </label>
+            <div class="controls">
+              <input name="user[postal_code]" type="text" pattern="^\d{5}$|^\d{5}-\d{4}$">
+            </div>
+          </div>
+        </div>
+
+        <div class="span5">
+          <div class="control-group">
+            <label class="control-label">Email:</label>
+            <div class="controls">
+              <input type="text" name="user[email]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Password:</label>
+            <div class="controls">
+              <input type="password" name="user[password]">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Confirm Password:</label>
+            <div class="controls">
+              <input type="password" name="user[confirm_password]">
+            </div>
+          </div>
+
+          <div class="margin-top16">
+            <div>
+              <label><input type="checkbox" name="terms"> I agree with the <a href="#">Terms and Conditions</a>.</label>
+              <input type="hidden" name="user[set_pic]" value="false">
+            </div>
+
+            <div class="margin-top2">
+              <input type="reset" value="Reset" class="btn">
+              <a class="btn btn-primary" href="#" id="signUpSubmit">Sign up</a>
+
+              <div id="signUpModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="invitationModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="invitationModalLabel">Congratulations!</h3>
+                </div>
+                <div class="modal-body">
+                  <p>You have successfully signed up for the Artifacts and Antiquities Registry.
+                    The team would like to thank you for taking the time to participate in our
+                    new system and hope you enjoy your experience here. Please feel free to
+                    send any feedback to cheungkt@rose-hulman.edu.
+                  </p>
+
+                  <p>
+                    You can view your main page by signing in using your newly registered credential. Enjoy!
+                  </p>
+
+                  <form></form>
+
+                  <%= form_for(:session, url: sessions_path, id: 'signInForm', class:'form-horizontal') do |f| %>
+                    <div class="control-group">
+                      <label class="control-label" for="user_email">Email: </label>
+
+                      <div class="controls">
+                        <%= f.text_field :email, id: 'user_email', placeholder: 'Email' %>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label" for="user_password">Password: </label>
+
+                      <div class="controls">
+                        <%= f.password_field :password, id: 'user_password', placeholder: 'Password' %>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                        <%= f.check_box :remember, class: 'float-left margin-right1', id: 'user_remember_me'%>
+                        <label class="string optional" for="user_remember_me"> Remember me</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <%= f.submit 'Sign In', class:'btn btn-primary' %>
+                </div>
+                  <% end %>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="span2"></div>
+  </div>
+</form>
