@@ -1,0 +1,194 @@
+<% provide(:title, 'Artifact') %>
+
+<div class="span12">
+  <div>
+    <h3>Artifact</h3>
+    <div class="dropdown float-right">
+      <a class="dropdown-toggle dropdown-arrow btn " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+        <strong></strong>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <li><%= link_to raw("<strong>Edit</strong>"), {controller: 'artifact', action: 'new', id: @artifact.id} %></li>
+
+        <li><%= link_to raw("<strong>Delete</strong>"), {controller: 'artifact', action: 'destroy', id: @artifact.id}, method: 'delete' %></li>
+      </ul>
+    </div>
+
+    <h4><%= @artifact.name %></h4>
+  </div>
+  <div class="row-fluid margin-bottom2">
+    <div class="span4">
+      <% if !@cover.nil? %>
+          <%= image_tag(@cover.image.url, :class => 'artifact-main-pic') %>
+      <% else %>
+          <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+      <% end %>
+    </div>
+    <div class="span8">
+      <strong>
+        Description:
+      </strong>
+
+      <p>
+        <% if !@artifact.keywords.nil? && !@artifact.description.empty? %>
+            <%= @artifact.description %>
+        <% end %>
+      </p>
+      <strong>
+        Keywords:
+      </strong>
+
+      <p>
+        <% if !@artifact.keywords.nil? && !@artifact.keywords.empty? %>
+            <% @artifact.keywords.each do |word| %>
+                <span class="label"><%= word %></span>
+            <% end %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <b>Click on the following images to see more about <%= @artifact.name %>:</b>
+  <div id="artifactGallery" class="well margin-bottom2">
+    <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+      <% if !@cover.nil? %>
+          <a class="artifact-additional-pic" href="<%= @cover.image.url %>" title="<%= @artifact.name %>" data-gallery="gallery">
+            <%= image_tag(@cover.image.url)%>
+          </a>
+      <% end %>
+      <% if !@pictures.empty? %>
+          <% @pictures.each do |p| %>
+              <a class="artifact-additional-pic" href="<%= p.image.url %>" title="<%= @artifact.name %>" data-gallery="gallery">
+                <%= image_tag(p.image.url)%>
+              </a>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="artifactSection" class="row-fluid well">
+    <div class="tabbable tabs-left">
+      <ul class="nav nav-tabs">
+        <li class="nav-header">Information</li>
+        <li class="active"><a href="#physical" data-toggle="tab">Physical Measurements</a></li>
+        <li><a href="#provenience" data-toggle="tab">Provenience</a></li>
+        <li><a href="#provenance" data-toggle="tab">Provenance</a></li>
+        <li><a href="#properties" data-toggle="tab">Properties</a></li>
+        <li><a href="#references" data-toggle="tab">References</a></li>
+        <li><a href="#miscellaneous" data-toggle="tab">Miscellaneous</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="physical">
+          <b>Physical Measurements</b><br>
+          Length: <%= @artifact.length %>   Width: <%= @artifact.width %>
+          <br>
+          Quality Information(1-10): <%= @artifact.quality %>
+          <br>
+        </div>
+
+        <div class="tab-pane" id="provenience">
+          <b>Provenience</b><br>
+
+          <b>Discovery</b><br>
+          Discoverer: <%= @artifact.discoverer %>
+          <br>
+          Discovery Location: <%= @artifact.discovery_location %>
+          <br>
+          <!--Discovery Date: <#%= @artifact.get_field_value(DISCOVERY_DATE).nil? ? "True" : "False" %>
+          --><br>
+
+          <b>Creation</b> <br>
+          Creator: <%= @artifact.creator %>
+          <br>
+          <!--Creation Location: <#%= @artifact.get_field_value(CREATION_LOCATION).nil? ? "True" : "False"  %>
+          --><br>
+          Creation Date: <%= @artifact.creation_date %>
+          <br>
+
+          <b>In-situ</b><br>
+          <!---In-situ input from the field/GPS: <#%= @artifact.get_field_value(IN_SITU_FIELD).nil? ? "True" : "False" %>
+          <br>
+          In-situ Photograph: <#%= @artifact.get_field_value(IN_SITU_IMAGE).nil? ? "True" : "False" %>
+          --><br>
+        </div>
+
+        <div class="tab-pane" id="provenance">
+          <b>Provenance</b>
+          <table class="table" >
+            <thead>
+            <tr>
+              <td>Owner</td>
+              <td>Owned From</td>
+              <td>Owned Until</td>
+            </tr>
+            </thead>
+            <tbody>
+            <% if !@artifact.provenance.empty? %>
+                <% @artifact.provenance.each do |possession| %>
+                    <tr >
+                      <td><%= possession.name %></td>
+                      <td><%= possession.start_date %></td>
+                      <td><%= possession.end_date %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+          <br>
+        </div>
+
+        <div class="tab-pane" id="properties">
+          <b>Properties</b><br>
+          Typology: <%= @artifact.typology %>
+          <br>
+          Material: <%= @artifact.material%>
+          <br>
+          Cultural Affiliation: <%= @artifact.cultural_affiliation%>
+          <br>
+          Restoration/Repairs: <%= @artifact.restoration_repairs %>
+          <br>
+          Damaged Areas: <%= @artifact.damaged_areas%>
+          <br>
+          Authentication information: <%= @artifact.authentication %>
+          <br>
+          Preservation/Treatment Protocols: <%= @artifact.preservation_treatment %>
+          <br>
+        </div>
+
+        <div class="tab-pane" id="references">
+          <b>References</b><br>
+          Publication references: <%= @artifact.publication_reference%>
+          <br>
+          Previously published gallery: <%= @artifact.previously_published %>
+          <br>
+          Technical Reports Sources: <%= @artifact.technical_reports %>
+          <br>
+          Links to other registry provision services or sources: <%= @artifact.links %>
+          <br>
+        </div>
+
+        <div class="tab-pane" id="miscellaneous">
+          <b>Miscellaneous</b><br>
+          <%= @artifact.miscellaneous %>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-gallery" class="modal modal-gallery hide fade" tabindex="-1">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3 class="modal-title"></h3>
+  </div>
+  <div class="modal-body"><div class="modal-image"></div></div>
+  <div class="modal-footer">
+    <a class="btn btn-primary modal-next">Next <i class="icon-arrow-right icon-white"></i></a>
+    <a class="btn btn-info modal-prev"><i class="icon-arrow-left icon-white"></i> Previous</a>
+    <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play icon-white"></i> Slideshow</a>
+    <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Download</a>
+  </div>
+</div>

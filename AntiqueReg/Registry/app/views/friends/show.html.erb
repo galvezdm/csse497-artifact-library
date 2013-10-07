@@ -1,0 +1,22 @@
+<% provide(:title, 'Profile') %>
+
+<div class="fluid-row" xmlns="http://www.w3.org/1999/html">
+  <div class="span5 text-center">
+    <img src="http://placehold.it/250x250">
+  </div>
+
+  <div class="span6 text-left">
+    <h4><%= "#{@friend.first_name } #{@friend.last_name }"%></h4>
+    <p><a href="mailto:<%= @friend.email %>"><%= @friend.email %></a></p>
+    <p></p>
+    <p>Phone Number: <%= @friend.phone_number %></p>
+    <p>Address: <%= "#{@friend.address}, #{@friend.city}, #{@friend.state} #{@friend.postal_code}" %></p>
+    <div class="span3">
+      <%= link_to 'Collections', {controller: 'users', action: 'collections', id: @friend.id}, class: 'btn btn-inverse' %>
+    </div>
+    <div class="span3">
+      <%= link_to 'Artifacts', {controller: 'users', action: 'artifacts', id: @friend.id}, class: 'btn btn-inverse' %>
+    </div>
+
+  </div>
+</div>

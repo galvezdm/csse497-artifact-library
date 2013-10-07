@@ -1,0 +1,132 @@
+<% provide(:title, 'Collection') %>
+
+<div class="fluid-row">
+  <div class="span9">
+    <h3>Collections</h3>
+  </div>
+  <div class="span3">
+    <%= link_to raw("<i class='icon-pencil icon-white'></i> <strong>Add Collection</strong>"), {controller: 'collections', action: 'new'}, class: 'btn btn-inverse float-right' %>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<% if @collections.count > 0
+     @collections.each do |collection, index| %>
+        <div class="collection">
+          <% artifact_count = collection.artifacts.count
+             items_per_row = 4
+          %>
+
+          <div class="fluid-row">
+            <div class="span6">
+              <h4>
+                <%= link_to collection.name, {controller: 'collections', action: 'info', id: collection.id} %>
+              </h4>
+            </div>
+            <div class="span6">
+              <div class="dropdown float-right">
+                <a class="dropdown-toggle dropdown-arrow btn " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+                  <strong></strong>
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  <li><%= link_to raw("<strong>Edit</strong>"), {controller: 'collections', action: 'edit', id: collection.id} %></li>
+
+                  <li><%= link_to raw("<strong>Delete</strong>"), {controller: 'collections', action: 'destroy', id: collection.id}, method: 'delete' %></li>
+                </ul>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <% if artifact_count > 0
+               if artifact_count < 4
+                 items_per_row = artifact_count
+               end
+               artifacts = artifact_count/items_per_row - 1
+               last_items = artifact_count%items_per_row
+          %>
+
+              <div class="clearfix">
+                <div class="carousel slide" id="collectionCarousel<%= index %>">
+                  <div class="carousel-inner">
+                    <div class="item active">
+                      <ul class="thumbnails">
+                        <% (1..items_per_row).each do |k| %>
+                            <li class="span3">
+                              <div class="thumbnail text-center">
+                                <% if !collection.artifacts.at(k-1).get_cover.nil? %>
+                                    <%= image_tag(collection.artifacts.at(k-1).get_cover.image.url, :class => 'artifact-main-pic') %>
+                                <% else %>
+                                    <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                                <% end %>
+                                <%= link_to collection.artifacts.at(k-1).name, controller: 'artifact', action: 'show', id: collection.artifacts.at(k-1).id %>
+                              </div>
+                            </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                    <% if artifact_count > 4
+                         (1..artifacts-1).each do |j| %>
+                            <% bound = items_per_row
+                               if j == artifacts
+                                 bound = last_items
+                               end
+                            %>
+                            <div class="item">
+                              <ul class="thumbnails">
+                                <% (1..bound).each do |k| %>
+                                    <li class="span3">
+                                      <div class="thumbnail text-center">
+                                        <% if !collection.artifacts.at(k-1).get_cover.nil? %>
+                                            <%= image_tag(collection.artifacts.at(items_per_row*j+k-1).get_cover.image.url, :class => 'artifact-main-pic') %>
+                                        <% else %>
+                                            <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                                        <% end %>
+                                        <%= link_to collection.artifacts.at(k-1).name, controller: 'artifact', action: 'show', id: collection.artifacts.at(items_per_row*j+k-1).id %>
+                                      </div>
+                                    </li>
+                                <% end %>
+                              </ul>
+                            </div>
+                        <% end %>
+                    <% end %>
+                  </div>
+                  <a data-slide="prev" href="#collectionCarousel<%= index %>" class="left carousel-control">‹</a>
+                  <a data-slide="next" href="#collectionCarousel<%= index %>" class="right carousel-control">›</a>
+                </div>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
+<% end %>
+
+<div class="pagination pull-right">
+  <ul>
+    <% if @current_page == 1 %>
+        <li class="prev disabled">
+    <% else %>
+        <li class="prev">
+    <% end %>
+
+    <%= link_to '← Previous', controller: 'users', action: 'collections', id: current_user.id, page: @current_page - 1 %>
+    </li>
+
+    <% (1..@pages).each do |k| %>
+        <% if k == @current_page %>
+            <li class="active">
+        <% else %>
+            <li>
+        <% end %>
+        <%= link_to k, controller: 'users', action: 'collections', id: current_user.id, page: k %>
+        </li>
+    <% end %>
+
+    <% if @current_page == @pages %>
+        <li class="next disabled">
+    <% else %>
+        <li class="next">
+    <% end %>
+    <%= link_to 'Next →', controller: 'users', action: 'collections', id: current_user.id, page: @current_page + 1 %>
+    </li>
+  </ul>
+</div>

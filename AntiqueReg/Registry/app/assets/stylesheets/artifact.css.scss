@@ -1,0 +1,84 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.scss.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#artifactInfo {
+  text-align: left;
+}
+
+#artifactSection {
+  padding-top:15px;
+
+  .nav {
+    margin-bottom: 0px;
+  }
+
+  .tab-content {
+    padding-top: 20px;
+  }
+
+  li a {
+    font-weight: bold;
+    color: #727B84;
+  }
+
+  li.active a {
+    color: #DF9496;
+  }
+}
+
+#artifactGallery {
+  img {
+    max-width: 100px;
+    min-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+}
+
+#permissionForm {
+  padding-bottom: 10px;
+  label {
+    margin-left: 15px;
+    white-space: pre-wrap;
+  }
+}
+
+#picTemp {
+  margin-left: 0px;
+}
+
+#artifactForm
+{
+  textarea, input[type=text], input[type=date], select {
+    width: 500px;
+  }
+
+  .shortInput input {
+    width: 150px;
+  }
+}
+
+#ownerInfoSection, #ownerInfoTemp
+{
+  .span4
+  {
+    margin-left: 0px;
+  }
+}
+
+.artifact-main-pic
+{
+  max-width: 250px;
+}
+
+.artifact-additional-pic
+{
+  max-width: 200px;
+}
+
+.artifact-search-pic
+{
+  max-width: 150px;
+}
