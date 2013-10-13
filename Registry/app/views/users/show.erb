@@ -1,0 +1,13 @@
+<%=  render partial: 'users/profile'%>
+<div class="fluid-row">
+  <div class="span12">
+    <% @permission_groups.each do |permission_group| %>
+        <p><%= permission_group.name %></p>
+    <% end %>
+  </div>
+</div>
+<div class="fluid-row">
+  <div class="offset8 span4">
+    <%= link_to "Add Group", {controller: 'permission_group', action: 'new'}, class: 'btn'%>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<% provide(:title, 'Create Collection') %>
+
+<%= form_for @collection, url: { action: 'update', id: @collection.id}, html: {class: 'form-horizontal'} do |f| %>
+
+    <div class="fluid-row">
+      <div class="span9">
+        <div class="control-group">
+          <div>
+            <%= f.text_field :name %>
+            <%= f.submit "Save Changes", class: "btn btn-success margin-left1" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="span3">
+        <%= link_to raw("<i class='icon-pencil icon-white'></i> <strong>Add Artifact</strong>"), {controller: 'artifact', action: 'new', collection_id: @collection.id}, class: 'btn btn-inverse' %>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <% @collection.artifacts.each do |artifact| %>
+        <div class="row-fluid margin-bottom2">
+          <div class="span4">
+            <img src="<%= @image.at(0) %>" width="250px" height="250px"/>
+          </div>
+          <div class="span8">
+            <strong>
+              Name:
+            </strong>
+
+            <p><%= artifact.name %></p>
+            <strong>
+              Description:
+            </strong>
+
+            <p><%= @description %></p>
+            <strong>
+              Keywords:
+            </strong>
+
+            <p>
+              <% @keywords.each do |x| %>
+                  <span class="label"><%= x %></span>
+              <% end %>
+            </p>
+          </div>
+        </div>
+    <% end %>
+<% end %>

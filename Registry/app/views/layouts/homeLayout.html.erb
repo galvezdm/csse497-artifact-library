@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "" %> | Artifacts and Antiquities Registry</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= stylesheet_link_tag 'application', :media => 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+<body>
+<div class="navbar-wrapper">
+  <div class="container">
+    <div class="navbar navbar-inverse navbar-static-top navbar-right">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Artifacts and Antiquities Registry</a>
+        <ul class="float-right nav">
+          <li><a href="/about">About</a></li>
+          <li><a href="/about#contact">Contact</a></li>
+          <li class="divider-vertical"></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <span class="caret"></span></a>
+            <div class="dropdown-menu padding-left2 padding-right2 padding-top2">
+              <%= form_for(:session, url: sessions_path) do |f| %>
+                  <%= f.text_field :email, class: 'margin-bottom2', placeholder: 'Email' %>
+                  <%= f.password_field :password, class: 'margin-bottom2', placeholder: 'Password' %>
+                  <%= f.check_box :remember, class: 'float-left margin-right1'%>
+                  <label class="string optional" for="user_remember_me"> Remember me</label>
+                  <%= f.submit 'Sign In', class:'btn btn-primary', style: "clear: left; width: 100%; height: 32px; font-size: 13px;" %>
+                <!--<input id="user_email" class="margin-bottom2" type="text" name="user[email]" size="30" placeholder="Email" />-->
+                <!--<input id="user_password" class="margin-bottom2" type="password" name="user[password]" size="30" placeholder="Password" />-->
+                <!--<input id="user_remember_me" class="float-left margin-right1" type="checkbox" name="user[remember_me]" value="1" />-->
+
+
+                <!--<input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />-->
+              <% end %>
+            </div>
+          </li>
+        </ul>
+      </div><!-- /.navbar-inner -->
+    </div><!-- /.navbar -->
+  </div> <!-- /.container -->
+</div><!-- /.navbar-wrapper -->
+
+<%= yield %>
+
+<footer>
+  <p>&copy; 2012 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+
+</body>
+</html>

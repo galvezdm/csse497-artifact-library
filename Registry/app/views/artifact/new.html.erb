@@ -1,0 +1,387 @@
+<% provide(:title, 'Create Artifact') %>
+
+<form action="/artifact" id="artifactForm" class="form-horizontal new_upload" accept-charset="UTF-8" enctype="multipart/form-data" method="post">
+<div class="well">
+  <div class="fluid-row">
+    <div class="span9">
+      <b>Images</b>
+    </div>
+    <div class="span3">
+      <span id="addMorePic" class="btn btn-inverse">
+        <i class="icon-plus icon-white"></i> <strong>Add MorePictures</strong>
+      </span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="fluid-row">
+    <div class="span3">
+      <p>Cover Photo</p>
+    </div>
+    <div class="span9">
+      <p>Additional Photos</p>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="fluid-row">
+    <div class="span3">
+      <div class="fileupload
+             <% if @edit && !@cover.nil? %>fileupload-exists
+             <% else %>fileupload-new
+          <% end %>" data-provides="fileupload">
+          <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">
+            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+          </div>
+          <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;">
+            <% if @edit && !@cover.nil?  %>
+                <%= image_tag(@cover.image.url) %>
+            <% end %>
+          </div>
+          <div>
+            <span class="btn btn-file">
+                <span class="fileupload-new">Select image</span>
+                <span class="fileupload-exists">Change</span>
+                <input name="cover" type="file" accept="image/*">
+            </span>
+            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
+      </div>
+    </div>
+    <div class="span9">
+        <% if @edit && !@pictures.empty? %>
+            <% @pictures.each_with_index do |p, index| %>
+              <div <% if index == @pictures.count-1 %>id="picSection"<% end %> class="span4">
+                <div class="fileupload fileupload-exists" data-provides="fileupload">
+                  <input type="hidden" name="pictures[]" value="<%= p.id %>" />
+                  <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">
+                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+                  </div>
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;">
+                    <%= image_tag(p.image.url) %>
+                  </div>
+                  <div>
+                    <span class="btn btn-file">
+                        <span class="fileupload-new">Select image</span>
+                        <span class="fileupload-exists">Change</span>
+                        <input name="pictures[]" type="file" accept="image/*"/>
+                    </span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+        <% else %>
+          <div id="picSection" class="span4">
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+              <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">
+                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+              </div>
+              <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
+              <div>
+                <span class="btn btn-file">
+                    <span class="fileupload-new">Select image</span>
+                    <span class="fileupload-exists">Change</span>
+                    <input name="pictures[]" type="file" accept="image/*"/>
+                </span>
+                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="well">
+  <b>General Info.</b><br>
+
+  <div class="control-group">
+    <label class="control-label" for="name">Item Name</label>
+
+    <div class="controls">
+      <input type="text" id="Name" name="artifact[name]" value="<%= @artifact.name %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="description">Description</label>
+
+    <div class="controls">
+      <textarea rows="5" id="Description" name="artifact[<%= DESCRIPTION %>]"><%= @artifact.description %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="keywords">Keywords</label>
+
+    <div class="controls">
+      <input type="text" id="Keywords" name="<%= KEYWORDS %>" value="<% if @edit %><%= @artifact.get_keyword_strings %><% end %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="email">Collection</label>
+
+    <div class="controls">
+      <select name="cid">
+        <% @collections.each do |c|
+          selected = @current_collection_id && c.id.to_s == @current_collection_id.to_s
+          if selected
+        %>
+                <option value="<%= c.id %>" selected><%= c.name %></option>
+            <% else %>
+                <option value="<%= c.id %>"><%= c.name %></option>
+            <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="well">
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'Physical Measurements'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="Length">Length</label>
+
+    <div class="controls">
+      <input type="text" id="length" name="artifact[<%= LENGTH %>]" value="<%= @artifact.length %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="Width">Width</label>
+
+    <div class="controls">
+      <input type="text" id="width" name="artifact[<%= WIDTH %>]" value="<%= @artifact.width %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="Quality">Quality Information(1-10)</label>
+
+    <div class="controls">
+      <select id="Quality" name="artifact[<%= QUALITY %>]">
+        <% (1..10).each do |i|
+          if @artifact.quality.to_s == i.to_s %>
+                <option selected><%= i %></option>
+            <% else %>
+                <option><%= i %></option>
+            <% end
+               end %>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="well">
+  <b>Provenience</b><br>
+
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'Discovery'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="Discoverer">Discoverer</label>
+
+    <div class="controls">
+      <input type="text" id="Discoverer" name="artifact[<%= DISCOVERER %>]" value="<%= @artifact.discoverer %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="DiscoveryLocation">Discovery Location</label>
+
+    <div class="controls">
+      <input type="text" id="DiscoveryLocation" name="artifact[<%= DISCOVERY_LOCATION %>]" value="<%= @artifact.discovery_location %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="DiscoveryDate">Discovery Date</label>
+
+    <div class="controls">
+      <input id="DiscoveryDate" type="text" name="artifact[<%= DISCOVERY_DATE %>]" value="<%= @artifact.discovery_date %>"/>
+    </div>
+  </div>
+
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'Creation'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="Creator">Creator</label>
+
+    <div class="controls">
+      <input type="text" id="Creator" name="artifact[<%= CREATOR %>]" value="<%= @artifact.creator %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="CreationLocation">Creation Location</label>
+
+    <div class="controls">
+      <input type="text" id="CreationLocation" name="artifact[<%= CREATION_LOCATION %>]" value="<%= @artifact.creation_location %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="CreationDate">Creation Date</label>
+
+    <div class="controls">
+      <input id="CreationDate" type="text" name="artifact[<%= CREATION_DATE %>]" value="<%= @artifact.creation_date %>"/>
+    </div>
+  </div>
+
+
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'In-situ'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="In-situ">In-situ input from the field/GPS</label>
+
+    <div class="controls">
+      <input type="text" id="In-situ" name="artifact[<%= IN_SITU %>]" value="<%= @artifact.in_situ %>">
+    </div>
+  </div>
+</div>
+
+<div class="well">
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'Provenance'} %>
+  <div>
+    <span id="addMoreProvenance" class="btn btn-inverse"><i class="icon-plus icon-white"></i> <strong>Add More Previous
+      Owner</strong></span>
+  </div>
+  <div class="fluid-row" id="ownerInfoSection">
+    <% if @edit && !@artifact.provenance.empty? %>
+        <% @artifact.provenance.each do |p| %>
+            <div class="span4 shortInput margin-top2">
+              <span>Previous Owner: </span>
+              <input type="text" name="artifact[provenance][]" value="<%= p.name %>">
+            </div>
+        <% end %>
+    <% else %>
+        <div class="span4 shortInput margin-top2">
+          <span>Previous Owner: </span>
+          <input type="text" name="artifact[provenance][][name]">
+        </div>
+    <% end %>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="well">
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'Properties'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="Typology">Typology</label>
+
+    <div class="controls">
+      <input type="text" id="Typology" name="artifact[<%= TYPOLOGY %>]" value="<%= @artifact.typology %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="Material">Material</label>
+
+    <div class="controls">
+      <input type="text" id="Material" name="artifact[<%= MATERIAL %>]" value="<%= @artifact.material %>">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="CulturalAffiliation">Cultural Affiliation</label>
+
+    <div class="controls">
+      <textarea rows="5" id="CulturalAffiliation" name="artifact[<%= CULTURAL_AFFILIATION %>]"><%= @artifact.cultural_affiliation %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="Restoration/Repairs">Restoration/Repairs</label>
+
+    <div class="controls">
+      <textarea rows="5" id="Restoration/Repairs" name="artifact[<%= RESTORATION_REPAIRS %>]"><%= @artifact.restoration_repairs %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="DamagedAreas">Damaged Areas</label>
+
+    <div class="controls">
+      <textarea rows="5" id="DamagedAreas" name="artifact[<%= DAMAGED_AREAS %>]"><%= @artifact.damaged_areas %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="Authentication">Authentication information</label>
+
+    <div class="controls">
+      <textarea rows="5" id="Authentication" name="artifact[<%= AUTHENTICATION %>]"><%= @artifact.authentication %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="Preservation/Treatment">Preservation/Treatment Protocols</label>
+
+    <div class="controls">
+      <textarea rows="5" id="Preservation/Treatments" name="artifact[<%= PRESERVATION_TREATMENT %>]"><%= @artifact.preservation_treatment %></textarea>
+    </div>
+  </div>
+</div>
+
+<div class="well">
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'References'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="Publication references">Publication references</label>
+
+    <div class="controls">
+      <textarea rows="5" id="PublicationReferences" name="artifact[<%= PUBLICATION_REF %>]"><%= @artifact.publication_ref %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="TechnicalReports">Technical Reports Sources</label>
+
+    <div class="controls">
+      <textarea rows="5" id="TechnicalReports" name="artifact[<%= TECHNICAL_REPORTS %>]"><%= @artifact.technical_reports %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="Links">Links to other registry provision services or sources</label>
+
+    <div class="controls">
+      <textarea rows="5" id="Links" name="artifact[<%= LINKS %>]"><%= @artifact.links %></textarea>
+    </div>
+  </div>
+</div>
+
+<div class="well">
+  <%= render :partial => 'layouts/shared/permissionGroup', :locals => {:permission_groups => @permission_groups, :title => 'Miscellaneous'} %>
+
+  <div class="control-group">
+    <label class="control-label" for="Misc">Miscellaneous Information</label>
+
+    <div class="controls">
+      <textarea rows="5" id="Misc" name="artifact[<%= MISCELLANEOUS %>]"><%= @artifact.miscellaneous %></textarea>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" name="id" value="<%= params[:id] %>">
+
+<div class="text-center">
+  <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+  <input type="reset" value="Reset" class="btn">
+</div>
+</form>
+
+<div id="picTemp" class="span4">
+  <div class="fileupload fileupload-new" data-provides="fileupload">
+    <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">
+      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+    </div>
+    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;"></div>
+    <div>
+      <span class="btn btn-file">
+        <span class="fileupload-new">Select image</span>
+        <span class="fileupload-exists">Change</span>
+        <input name="pictures[]" type="file" accept="image/*"/>
+      </span>
+      <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+    </div>
+  </div>
+</div>
+
+<div class="fluid-row" id="ownerInfoTemp">
+  <div class="span4 shortInput margin-top2">
+    <span>Previous Owner: </span>
+    <input type="text" name="artifact[provenance][]">
+  </div>
+</div>

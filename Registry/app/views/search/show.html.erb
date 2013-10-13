@@ -1,0 +1,79 @@
+<h3>Search Results</h3>
+<% if @current_page > @pages %>
+    <p>Invalid search request, please try again.</p>
+<% else %>
+    <% if @artifacts.count > 0 %>
+        <table class="table table-hover">
+          <tbody>
+          <% @artifacts.each_with_index do |artifact, index| %>
+              <tr>
+                <td>
+                  <b><%= (@current_page-1)*@items_per_page+index+1 %></b>
+                </td>
+                <td>
+                  <% if !artifact.get_cover.nil? %>
+                      <%= image_tag(artifact.get_cover.image.url, :class => 'artifact-search-pic') %>
+                  <% else %>
+                      <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                  <% end %>
+                </td>
+                <td>                                    <%= image_tag(@cover.image.url, :class => 'artifact-main-pic') %
+                  <div>
+                    <%= link_to artifact.name, controller: 'artifact', action: 'show', id: artifact.id %>
+                  </div>
+                  <% if !artifact.description.nil? %>
+                      <div>
+                        <b>Description: </b><%= artifact.description %>
+                      </div>
+                  <% end %>
+                  <% if !artifact.keywords.empty? %>
+                      <div>
+                        <b>Keywords: </b>
+                        <% artifact.keywords.each do |word| %>
+                            <span class="label"><%= word %></span>
+                        <% end %>
+                      </div>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+
+        </table>
+    <% else %>
+        <p>No artifacts found, please try again using other keyworks.</p>
+    <% end %>
+
+    <div class="pagination pull-right">
+      <ul>
+        <% if @current_page == 1 %>
+            <li class="prev disabled">
+        <% else %>
+            <li class="prev">
+        <% end %>
+
+        <%= link_to '← Previous', controller: 'search', action: 'show', page: @current_page - 1 %>
+        </li>
+
+        <% (1..@pages).each do |k| %>
+            <% if k == @current_page %>
+                <li class="active">
+            <% else %>
+                <li>
+            <% end %>
+
+            <%= link_to k, controller: 'search', action: 'show', page: k %>
+            </li>
+        <% end %>
+
+        <% if @current_page == @pages %>
+            <li class="prev disabled">
+        <% else %>
+            <li class="prev">
+        <% end %>
+
+        <%= link_to 'Next →', controller: 'search', action: 'show', page: @current_page + 1 %>
+        </li>
+      </ul>
+    </div>
+<% end %>

@@ -1,0 +1,100 @@
+<h3>Edit Profile</h3>
+
+<form action="<%= request.url %>" accept-charset="UTF-8" enctype="multipart/form-data" method="post">
+  <div class="margin-top2">
+    <div class="row-fluid">
+      <div class="span2">
+      </div>
+      <div class="span9">
+        <div class="span4">
+          <div>
+            <p>Profile Picture</p>
+            <div class="fileupload
+             <% if !current_user.avatar.nil? %>fileupload-exists
+             <% else %>fileupload-new
+          <% end %>" data-provides="fileupload">
+              <div class="fileupload-new thumbnail" style="width: 150px; height: 150px;">
+                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+              </div>
+              <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 150px; max-height: 150px; line-height: 20px;">
+                <% if !current_user.avatar.nil?%>
+                    <%= image_tag(current_user.avatar.image.url) %>
+                <% end %>
+              </div>
+              <div>
+            <span class="btn btn-file">
+                <span class="fileupload-new">Select image</span>
+                <span class="fileupload-exists">Change</span>
+                <input name="picture" type="file" accept="image/*">
+            </span>
+                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="control-group">
+            <label class="control-label">Email:</label>
+            <div class="controls">
+              <input type="text" value="<%= current_user.email %>" disabled="true">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">First Name: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[first_name]" value="<%= current_user.first_name %>">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Last Name: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[last_name]" value="<%= current_user.last_name %>">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Phone Number: </label>
+            <div class="controls">
+              <input type="text" class="bfh-phone" data-country="US" name="user[phone_number]" data-number="<%= current_user.phone_number %>">
+            </div>
+          </div>
+          <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+        </div>
+
+        <div class="span4">
+          <div class="control-group">
+            <label class="control-label">Address: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[address]" value="<%= current_user.address %>">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">City: </label>
+            <div class="controls">
+              <input type="text" id="Name" name="user[city]" value="<%= current_user.city %>">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">State: </label>
+            <div class="controls">
+              <select class="bfh-states" data-country="US" data-state="<%= current_user.state %>" name="user[state]"></select>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Zip Code: </label>
+            <div class="controls">
+              <input name="user[postal_code]" type="text" value="<%= current_user.postal_code %>" pattern="^\d{5}$|^\d{5}-\d{4}$">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span1">
+      </div>
+    </div>
+  </div>
+</form>

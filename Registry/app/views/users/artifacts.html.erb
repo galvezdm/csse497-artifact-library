@@ -1,0 +1,108 @@
+<% provide(:title, 'Artifacts') %>
+
+<div class="fluid-row">
+  <div class="span9">
+    <h3>Artifacts</h3>
+  </div>
+  <div class="span3">
+    <%= link_to raw("<i class='icon-pencil icon-white'></i> <strong>Add Artifact</strong>"), {controller: 'artifact', action: 'new'}, class: 'btn btn-inverse' %>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<% if @parsedArtifacts.count > 0 %>
+    <div class="span12">
+      <div class="clearfix">
+        <div class="carousel slide" id="collectionCarousel">
+          <div class="carousel-inner">
+            <% items_per_row = 4 %>
+            <div class="item active">
+              <% subGroup = @parsedArtifacts.at(0)
+                 rows = subGroup.count/items_per_row - 1
+                 (0..rows).each do |j| %>
+                  <ul class="thumbnails">
+                    <% (j*items_per_row..(j+1)*items_per_row - 1).each do |k| %>
+                        <li class="span3">
+                          <div class="thumbnail text-center">
+                            <% if !subGroup.at(k).get_cover.nil? %>
+                                <%= image_tag(subGroup.at(k).get_cover.image.url, :class => 'artifact-main-pic') %>
+                            <% else %>
+                                <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                            <% end %>
+                            <%= link_to subGroup.at(k).name, {controller: 'artifact', action: 'show', id: subGroup.at(k).id} %>
+                          </div>
+                        </li>
+                    <% end %>
+                  </ul>
+              <% end %>
+              <% last_items = subGroup.count%items_per_row %>
+              <% if last_items != 0 %>
+                  <ul class="thumbnails">
+                    <% base = (rows+1)*items_per_row
+                       (base..subGroup.count-1).each do |k| %>
+                        <li class="span3">
+                          <div class="thumbnail text-center">
+                            <% if !subGroup.at(k).get_cover.nil? %>
+                                <%= image_tag(subGroup.at(k).get_cover.image.url, :class => 'artifact-main-pic') %>
+                            <% else %>
+                                <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                            <% end %>
+                            <%= link_to subGroup.at(k).name, {controller: 'artifact', action: 'show', id: subGroup.at(k).id} %>
+                          </div>
+                        </li>
+                    <% end %>
+                  </ul>
+              <% end %>
+            </div>
+
+            <% if @parsedArtifacts.count > 1 %>
+                <% (1..@parsedArtifacts.count-1).each do |i| %>
+                    <div class="item">
+                      <% subGroup = @parsedArtifacts.at(i)
+                         rows = subGroup.count/items_per_row - 1
+                         (0..rows).each do |j| %>
+                          <ul class="thumbnails">
+                            <% (j*items_per_row..(j+1)*items_per_row - 1).each do |k| %>
+                                <li class="span3">
+                                  <div class="thumbnail text-center">
+                                    <% if !subGroup.at(k).get_cover.nil? %>
+                                        <%= image_tag(subGroup.at(k).get_cover.image.url, :class => 'artifact-main-pic') %>
+                                    <% else %>
+                                        <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                                    <% end %>
+                                    <%= link_to subGroup.at(k).name, {controller: 'artifact', action: 'show', id: subGroup.at(k).id} %>
+                                  </div>
+                                </li>
+                            <% end %>
+                          </ul>
+                      <% end %>
+                    </div>
+                <% end %>
+                <% last_items = subGroup.count%items_per_row %>
+                <% if last_items != 0 %>
+                    <ul class="thumbnails">
+                      <% base = (rows+1)*items_per_row
+                         (base..subGroup.count-1).each do |k| %>
+                          <li class="span3">
+                            <div class="thumbnail text-center">
+                              <% if !subGroup.at(k).get_cover.nil? %>
+                                  <%= image_tag(subGroup.at(k).get_cover.image.url, :class => 'artifact-main-pic') %>
+                              <% else %>
+                                  <%= image_tag('http://www.placehold.it/250x200/EFEFEF/AAAAAA&text=no+image') %>
+                              <% end %>
+                              <%= link_to subGroup.at(k).name, {controller: 'artifact', action: 'show', id: subGroup.at(k).id} %>
+                            </div>
+                          </li>
+                      <% end %>
+                    </ul>
+                <% end %>
+            <% end %>
+
+
+          </div>
+          <a data-slide="prev" href="#collectionCarousel" class="left carousel-control">‹</a>
+          <a data-slide="next" href="#collectionCarousel" class="right carousel-control">›</a>
+        </div>
+      </div>
+      <br>
+    </div>
+<% end %>
