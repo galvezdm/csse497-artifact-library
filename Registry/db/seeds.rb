@@ -31,6 +31,11 @@
                                :password => 3, :phone_number => "5558675309", :address => "1 Loneliest Number", :city => "Longly",
                                :state => "IN", :postal_code => "47803"
       nofriends.save!()
+	  
+	  david = User.create! :first_name => "david", :last_name => "david", :email => "david",
+                               :password => 1, :phone_number => "david", :address => "david", :city => "david",
+                               :state => "david", :postal_code => "david"
+      david.save!()
 
       marsh.friends << elmer
       marsh.save!()
@@ -47,6 +52,37 @@
      flint_collection.keywords << "Arrowheads"
      flint_collection.keywords << "Flint"
      flint_collection.save!()
+	 
+      quapaw = Artifact.new universal: true
+      quapaw.owner = marsh
+      flint_collection.artifacts << quapaw
+      quapaw.name =  "Quapaw Dog Effigy Teapot"
+      quapaw.description = "This 8\'\' Nodena dog efficgy teapot with turned head is exceeding rare."
+      quapaw.description.permission_groups << permGroup
+      quapaw.length=  "8 in"
+      quapaw.width=  "6 in"
+      quapaw.cultural_affiliation=  "Quapaw"
+      quapaw.previously_published=  "Ancient Indian Pottery - Roy"
+      quapaw.quality=  "High"
+      quapaw.discoverer=  "Bill Brown"
+      quapaw.discovery_location = "Humber Site in Coahoma County, Mississippi"
+      quapaw.creator=  "Quapaw Culture"
+      quapaw.creation_date= "1650-1750 AD"
+      quapaw.repairs=  "None"
+      quapaw.damaged_areas=  "right side of head"
+      quapaw.authentication=  "Unknown"
+      quapaw.preservation_treatment=  "None"
+      quapaw.publication_reference = "Blah"
+      quapaw.technical_reports=  "Blah"
+      quapaw.miscellaneous=  "Blah"
+      quapaw.provenance << "Tom Moxley"
+      quapaw.provenance << "Jack Roberts"
+	  quapaw.provenance << "Tommy Tucker"
+	  quapaw.provenance << "Roy Hathcock"
+      quapaw.keywords << "Animal"
+      quapaw.keywords << "Dog"
+      quapaw.keywords << "Teapot"
+      quapaw.save!()
 
       mackinaw = Artifact.new universal: true
       mackinaw.owner = marsh

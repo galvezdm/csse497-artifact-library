@@ -39,6 +39,7 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -51,6 +52,12 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     columnize (0.3.6)
+    debugger (1.6.2)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -139,22 +146,10 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug-base19x (0.11.30.pre10)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      rake (>= 0.8.1)
-      ruby_core_source (>= 0.1.4)
     ruby-debug-ide (0.4.17.beta16)
       rake (>= 0.8.1)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
     ruby-stemmer (0.9.3)
+    ruby-stemmer (0.9.3-x86-mingw32)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     sass (3.2.1)
@@ -181,11 +176,13 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   bcrypt-ruby
   bootstrap-sass
   coffee-rails (~> 3.2.1)
+  debugger
   factory_girl_rails (~> 4.0)
   jquery-rails
   json
@@ -198,9 +195,7 @@ DEPENDENCIES
   rails (= 3.2.8)
   rspec
   rspec-rails
-  ruby-debug-base19x (~> 0.11.30.pre4)
   ruby-debug-ide (>= 0.4.17.beta14)
-  ruby-debug19
   ruby-stemmer
   sass-rails (~> 3.2.3)
   simple_form
