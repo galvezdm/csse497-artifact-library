@@ -8,7 +8,7 @@ gem 'rails', '3.2.8'
 gem 'mongoid'
 gem 'json'
 gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'ruby-stemmer'
 
 group :test, :development do

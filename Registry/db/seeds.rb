@@ -31,14 +31,14 @@
                                :password => 3, :phone_number => "5558675309", :address => "1 Loneliest Number", :city => "Longly",
                                :state => "IN", :postal_code => "47803"
       nofriends.save!()
-	  
-	  david = User.create! :first_name => "david", :last_name => "david", :email => "david",
-                               :password => 1, :phone_number => "david", :address => "david", :city => "david",
-                               :state => "david", :postal_code => "david"
-      david.save!()
 
       marsh.friends << elmer
       marsh.save!()
+
+      hello = User.create! :first_name => "Hello1", :last_name => "Hello2", :email => "hello@yahoo.com", :password => 1,
+                           :phone_number => "555555555", :address => "134 Dinosaur Walk", :city => "Terre Haute", :state => "IN",
+                           :postal_code => "47803"
+      hello.save!()
 
       #Test Permissions Groups
       permGroup = PermissionGroup.create! :name => "Aficionados", :owner => marsh
