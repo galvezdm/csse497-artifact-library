@@ -8,6 +8,34 @@ class Artifact
   field :enabled, type: Boolean, default: true
 
   field :keywords, type: Array, default: []
+  field :description, type: String
+  field :length
+  field :width
+  field :quality
+
+  field :discoverer, type String
+  field :discoveryLocation, type String
+  field :discoveryDate, type String
+  field :creator, type String
+  field :creationLocation, type String
+  field :creationDate, type String
+  field :fieldGPS, type String
+
+  field :previousOwners, type Array, default: []
+
+  field :typology, type String
+  field :material, type String
+  field :culturalAffiliation, type String
+  field :restorations, type String
+  field :damagedAreas, type String
+  field :authenticationInformation, type String
+  field :preservationProtocol, type String
+
+  field :publicationReferences, type String
+  field :technicalReportsSources, type String
+  field :linksToOtherRegistries, type String
+  field :miscInfo, type String
+
   embeds_many :info_fields
 
   embeds_one :main_picture, :class_name => "Picture"

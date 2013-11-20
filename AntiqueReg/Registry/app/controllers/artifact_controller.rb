@@ -21,6 +21,8 @@ class ArtifactController < ApplicationController
         artifact.add_keyword(k)
       end
 
+      artifact.set_field("length", params[LENGTH])
+
       artifact.owner = current_user
 
       if artifact.valid?
